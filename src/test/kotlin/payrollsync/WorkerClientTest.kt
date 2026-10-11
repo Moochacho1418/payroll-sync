@@ -1,4 +1,4 @@
-package payrollsync
+﻿package payrollsync
 
 import java.time.Instant
 import kotlin.test.Test
@@ -31,7 +31,7 @@ class WorkerClientTest {
     fun `retries a server error with backoff then succeeds`() {
         var calls = 0
         val all = client { _, _, _ ->
-            if (++calls < 3) throw ProviderException(503, "busy")
+            if (++calls < 3) throw ProviderException(503, "unavailable")
             WorkerPage(listOf(worker("a")), null)
         }.fetchAll("org")
         assertEquals(1, all.size)
